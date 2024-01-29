@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -63,8 +64,6 @@ MonoBehaviour:
   - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
   - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
   - {fileID: 8425380733365050773, guid: 7eab0183194f56c47960189314db9cad, type: 3}
-  - {fileID: 8425380733365050773, guid: ca23038aff4ea224781f2efbae42b5dd, type: 3}
-  - {fileID: 8425380733365050773, guid: a476fc87d0267ed4bb341bca483566ca, type: 3}
   roomSettings:
   - floorMaterial: {fileID: 2100000, guid: e39f482786c5b8d478abd3e1c881aa87, type: 2}
     wallMaterial: {fileID: 2100000, guid: 749fac93ee796a54dad2e782321ef032, type: 2}

@@ -1,4 +1,5 @@
 ﻿//by EvolveGames
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,7 @@ namespace EvolveGames
         float installGravity;
         bool WallDistance;
         [HideInInspector] public float WalkingValue;
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -151,11 +153,18 @@ namespace EvolveGames
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Ladder" && CanClimbing)
-            { 
+            {
                 CanRunning = false;
                 isClimbing = true;
                 WalkingValue /= 2;
                 Items.Hide(true);
+            }
+            if (other.CompareTag("Detection"))
+            {
+                Debug.Log("Detected");
+                QuestionPopUp.Instance.popUpPanel.SetActive(true);
+                QuestionPopUp.Instance.ToggleCursorState(true);
+                QuestionPopUp.Instance.ToggleFPSController(false);
             }
         }
         private void OnTriggerStay(Collider other)
