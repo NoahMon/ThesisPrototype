@@ -9,6 +9,7 @@ public class QuestionPopUp : MonoBehaviour
 {
     public GameObject popUpPanel;
     public MonoBehaviour fpsController;
+    public GameObject question;
     public static QuestionPopUp Instance { get; private set; }
 
     private void Awake()
@@ -19,11 +20,11 @@ public class QuestionPopUp : MonoBehaviour
         {
             Instance = this;
             popUpPanel.SetActive(false);
-            DontDestroyOnLoad(gameObject); // Optional: if you want this to persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Destroy if another instance is already present
+            Destroy(gameObject);
         }
     }
 

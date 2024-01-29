@@ -63,6 +63,8 @@ MonoBehaviour:
   - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
   - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
   - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
+  - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
+  - {fileID: 8425380733365050773, guid: cc5036275e0832a40af4cf23ea7d7e46, type: 3}
   - {fileID: 8425380733365050773, guid: 7eab0183194f56c47960189314db9cad, type: 3}
   roomSettings:
   - floorMaterial: {fileID: 2100000, guid: e39f482786c5b8d478abd3e1c881aa87, type: 2}

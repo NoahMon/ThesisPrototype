@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace EvolveGames
@@ -152,37 +153,53 @@ namespace EvolveGames
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Ladder" && CanClimbing)
-            {
-                CanRunning = false;
-                isClimbing = true;
-                WalkingValue /= 2;
-                Items.Hide(true);
-            }
             if (other.CompareTag("Detection"))
             {
                 Debug.Log("Detected");
                 QuestionPopUp.Instance.popUpPanel.SetActive(true);
+                QuestionPickerS();
                 QuestionPopUp.Instance.ToggleCursorState(true);
                 QuestionPopUp.Instance.ToggleFPSController(false);
             }
         }
-        private void OnTriggerStay(Collider other)
+
+        private void QuestionPickerS()
         {
-            if (other.tag == "Ladder" && CanClimbing)
+            TextMeshProUGUI Question = QuestionPopUp.Instance.question.GetComponent<TextMeshProUGUI>();
+            int randomInt = UnityEngine.Random.Range(0, 10);
+
+            switch (randomInt)
             {
-                moveDirection = new Vector3(0, Input.GetAxis("Vertical") * Speed * (-Camera.localRotation.x / 1.7f), 0);
-            }
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.tag == "Ladder" && CanClimbing)
-            {
-                CanRunning = true;
-                isClimbing = false;
-                WalkingValue *= 2;
-                Items.ani.SetBool("Hide", false);
-                Items.Hide(false);
+                case 1:
+                    Question.text = "Question 1".ToString();
+                    break;
+                case 2:
+                    Question.text = "Question 2".ToString();
+                    break;
+                case 3:
+                    Question.text = "Question 3".ToString();
+                    break;
+                case 4:
+                    Question.text = "Question 4".ToString();
+                    break;
+                case 5:
+                    Question.text = "Question 5".ToString();
+                    break;
+                case 6:
+                    Question.text = "Question 6".ToString();
+                    break;
+                case 7:
+                    Question.text = "Question 7".ToString();
+                    break;
+                case 8:
+                    Question.text = "Question 8".ToString();
+                    break;
+                case 9:
+                    Question.text = "Question 9".ToString();
+                    break;
+                case 10:
+                    Question.text = "Question 10".ToString();
+                    break;
             }
         }
 
