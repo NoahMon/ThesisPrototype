@@ -65,6 +65,8 @@ namespace EvolveGames
         bool WallDistance;
         [HideInInspector] public float WalkingValue;
 
+        private GameObject collidedObject = null;
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -155,53 +157,20 @@ namespace EvolveGames
         {
             if (other.CompareTag("Detection"))
             {
-                Debug.Log("Detected");
                 QuestionPopUp.Instance.popUpPanel.SetActive(true);
-                QuestionPickerS();
+                QuestionPopUp.Instance.DisplayQuestion();
                 QuestionPopUp.Instance.ToggleCursorState(true);
                 QuestionPopUp.Instance.ToggleFPSController(false);
+                collidedObject = other.gameObject;
             }
         }
-
-        private void QuestionPickerS()
+        private void OnTriggerExit(Collider other)
         {
-            TextMeshProUGUI Question = QuestionPopUp.Instance.question.GetComponent<TextMeshProUGUI>();
-            int randomInt = UnityEngine.Random.Range(0, 10);
-
-            switch (randomInt)
+            if (collidedObject != null && other.gameObject == collidedObject)
             {
-                case 1:
-                    Question.text = "Question 1".ToString();
-                    break;
-                case 2:
-                    Question.text = "Question 2".ToString();
-                    break;
-                case 3:
-                    Question.text = "Question 3".ToString();
-                    break;
-                case 4:
-                    Question.text = "Question 4".ToString();
-                    break;
-                case 5:
-                    Question.text = "Question 5".ToString();
-                    break;
-                case 6:
-                    Question.text = "Question 6".ToString();
-                    break;
-                case 7:
-                    Question.text = "Question 7".ToString();
-                    break;
-                case 8:
-                    Question.text = "Question 8".ToString();
-                    break;
-                case 9:
-                    Question.text = "Question 9".ToString();
-                    break;
-                case 10:
-                    Question.text = "Question 10".ToString();
-                    break;
+                Destroy(collidedObject);
+                collidedObject = null; 
             }
         }
-
     }
 }

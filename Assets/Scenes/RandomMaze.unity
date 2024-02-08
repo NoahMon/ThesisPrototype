@@ -1042,10 +1042,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 44.75
+  m_fontSizeBase: 28
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1285,6 +1285,7 @@ MonoBehaviour:
   popUpPanel: {fileID: 22725541}
   fpsController: {fileID: 1097966818}
   question: {fileID: 1040329465}
+  playerChoice: 0
 --- !u!1001 &1729095185
 PrefabInstance:
   m_ObjectHideFlags: 0
