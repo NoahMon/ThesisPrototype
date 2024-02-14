@@ -145,12 +145,12 @@ namespace EvolveGames
                 }
             }
 
-            if(WallDistance != Physics.Raycast(GetComponentInChildren<Camera>().transform.position, transform.TransformDirection(Vector3.forward), out ObjectCheck, HideDistance, LayerMaskInt) && CanHideDistanceWall)
+            /*if(WallDistance != Physics.Raycast(GetComponentInChildren<Camera>().transform.position, transform.TransformDirection(Vector3.forward), out ObjectCheck, HideDistance, LayerMaskInt) && CanHideDistanceWall)
             {
                 WallDistance = Physics.Raycast(GetComponentInChildren<Camera>().transform.position, transform.TransformDirection(Vector3.forward), out ObjectCheck, HideDistance, LayerMaskInt);
                 Items.ani.SetBool("Hide", WallDistance);
                 Items.DefiniteHide = WallDistance;
-            }
+            }*/
         }
 
         private void OnTriggerEnter(Collider other)
@@ -163,6 +163,20 @@ namespace EvolveGames
                 QuestionPopUp.Instance.ToggleFPSController(false);
                 collidedObject = other.gameObject;
             }
+            if(other.CompareTag("Speed Up"))
+            {
+                collidedObject = other.gameObject;
+                StartCoroutine(WalkFast());
+            }
+        }
+
+        IEnumerator WalkFast()
+        {
+            WalkingValue = 6f;
+            Debug.Log("Sonic");
+            yield return new WaitForSeconds(5);
+            WalkingValue = 3f;
+            Debug.Log("Not Sonic");
         }
         private void OnTriggerExit(Collider other)
         {

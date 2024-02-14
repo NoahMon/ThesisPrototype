@@ -75,7 +75,7 @@ public class QuestionPopUp : MonoBehaviour
                 correctAnswer = true;
                 break;
             case 7:
-                Question.text = "Are these multiples of 9: 9,36,47,90";
+                Question.text = "Are these multiples of 9: 9,36,45,90";
                 correctAnswer = true;
                 break;
             case 8:
@@ -88,7 +88,7 @@ public class QuestionPopUp : MonoBehaviour
                 break;
             case 10:
                 Question.text = "Is there 1 face on a sphere?";
-                correctAnswer = false;
+                correctAnswer = true;
                 break;
             case 11:
                 Question.text = "Does a cone have 1 face and 1 curved surface?";

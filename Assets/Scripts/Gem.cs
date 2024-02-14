@@ -1,32 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Gem : MonoBehaviour
 {
-    float x;
-    float y;
-    float z;
-    Vector3 pos;
-
-    public GameObject Player;
+    public List<GameObject> gemPrefabs; // List of prefabs to spawn
+    public int numberOfGems = 6; // Number of gems to spawn
+    public Vector3 spawnAreaCenter; 
+    public Vector3 spawnAreaSize;
 
     void Start()
     {
-        x = Random.Range(-9.5f, 9.5f);
-        y = 0.2f;
-        z = Random.Range(-9.6f, 9.5f);
-        pos = new Vector3(x, y, z);
-        transform.position = pos;
+        SpawnGems();
     }
 
-    private void OnTriggerEnter(Collider collider)
+    void SpawnGems()
     {
-        if(collider.gameObject == Player)
+        List<GameObject> gems = new List<GameObject>();
+
+        for (int i = 0; i < numberOfGems; i++)
         {
-            SceneManager.LoadScene("WinScene");
+            // Randomly select a gem prefab from the list
+            GameObject selectedPrefab = gemPrefabs[Random.Range(0, gemPrefabs.Count)];
+
+            // Random position within the spawn area
+            Vector3 spawnPos = new Vector3(
+                Random.Range(spawnAreaCenter.x - spawnAreaSize.x / 2, spawnAreaCenter.x + spawnAreaSize.x / 2),
+                spawnAreaCenter.y,
+                Random.Range(spawnAreaCenter.z - spawnAreaSize.z / 2, spawnAreaCenter.z + spawnAreaSize.z / 2)
+            );
+
+            // Instantiate gem at the random position
+            GameObject gemInstance = Instantiate(selectedPrefab, spawnPos, Quaternion.identity);
+            gems.Add(gemInstance);
         }
     }
-
 }

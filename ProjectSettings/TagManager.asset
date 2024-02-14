@@ -9,6 +9,13 @@ TagManager:
   - Detection
   - True
   - False
+  - WallOff
+  - Speed Up
+  - Flash
+  - Hammer
+  - Lights Out
+  - Slow Walk
+  - Shock
   layers:
   - Default
   - TransparentFX
