@@ -705,6 +705,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &535203795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8239518188339370428, guid: 3635a4949f532ee4c8696d00d26a9bef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1228735643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &535203797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535203795}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.69588006, z: 4.884895}
+  m_Center: {x: 0.0000005681681, y: 1.8704345, z: 1.364717}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,12 +1077,17 @@ PrefabInstance:
     - target: {fileID: 8239518188339370428, guid: 3635a4949f532ee4c8696d00d26a9bef,
         type: 3}
       propertyPath: m_Name
-      value: Hammer
+      value: ActualHammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239518188339370428, guid: 3635a4949f532ee4c8696d00d26a9bef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8239518188339370428, guid: 3635a4949f532ee4c8696d00d26a9bef,
         type: 3}
       propertyPath: m_TagString
-      value: Hammer
+      value: ActualHammer
       objectReference: {fileID: 0}
     - target: {fileID: 8724447262566433542, guid: 3635a4949f532ee4c8696d00d26a9bef,
         type: 3}
@@ -1198,7 +1222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemPrefabs:
   - {fileID: 7535266119704928820, guid: f394a5fdb2d205349b4101dd79bf0c8d, type: 3}
-  numberOfGems: 1
+  - {fileID: 1251353114522481715, guid: 6cd058d24e3e2c248a89283b2af2776b, type: 3}
+  numberOfGems: 2
   spawnAreaCenter: {x: 1, y: 0.2, z: 1}
   spawnAreaSize: {x: 9.5, y: 0.2, z: 9.5}
 --- !u!1 &1691321553

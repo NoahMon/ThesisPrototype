@@ -16,6 +16,8 @@ TagManager:
   - Lights Out
   - Slow Walk
   - Shock
+  - Wall
+  - ActualHammer
   layers:
   - Default
   - TransparentFX

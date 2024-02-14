@@ -64,6 +64,7 @@ namespace EvolveGames
         float installGravity;
         bool WallDistance;
         [HideInInspector] public float WalkingValue;
+        bool hammerCheck =false;
 
         private GameObject collidedObject = null;
 
@@ -163,19 +164,39 @@ namespace EvolveGames
                 QuestionPopUp.Instance.ToggleFPSController(false);
                 collidedObject = other.gameObject;
             }
-            if(other.CompareTag("Speed Up"))
+            if (other.CompareTag("Speed Up"))
             {
-                collidedObject = other.gameObject;
+                Destroy(other.gameObject);
                 StartCoroutine(WalkFast());
             }
+            if (other.CompareTag("Hammer"))
+            {
+                GameObject Hammer = other.transform.Find("ActualHammer").gameObject;
+               /* hammerCheck = true;
+                Hammer.SetActive(true);
+                Destroy(other.gameObject);*/
+            }
+            if (other.CompareTag("Wall") && hammerCheck == true)
+            {
+                StartCoroutine(DestroyWallDelayed(other.gameObject));
+            }
         }
+        IEnumerator DestroyWallDelayed(GameObject wall)
+        {
+            GameObject Particles = wall.transform.Find("DustExplosion").gameObject;
+            Particles.SetActive(true);
+            Debug.Log("Wall down");
 
+            yield return new WaitForSeconds(1);
+
+            Destroy(wall);
+        }
         IEnumerator WalkFast()
         {
-            WalkingValue = 6f;
+            WalkingValue = 3f;
             Debug.Log("Sonic");
             yield return new WaitForSeconds(5);
-            WalkingValue = 3f;
+            WalkingValue = 1.25f;
             Debug.Log("Not Sonic");
         }
         private void OnTriggerExit(Collider other)
