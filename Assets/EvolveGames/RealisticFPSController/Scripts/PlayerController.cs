@@ -68,6 +68,9 @@ namespace EvolveGames
 
         private GameObject collidedObject = null;
         private GameObject Hammer;
+        public GameObject LightsOff;
+        public GameObject LightsOn;
+        public GameObject Teleport;
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -83,6 +86,8 @@ namespace EvolveGames
             WalkingValue = walkingSpeed;
             Hammer = GameObject.FindGameObjectWithTag("ActualHammer");
             Hammer.SetActive(false);
+            LightsOff.SetActive(false);
+            LightsOn.SetActive(false);
         }
 
         void Update()
@@ -147,13 +152,6 @@ namespace EvolveGames
                     WalkingValue = Mathf.Lerp(WalkingValue, walkingSpeed, 4 * Time.deltaTime);
                 }
             }
-
-            /*if(WallDistance != Physics.Raycast(GetComponentInChildren<Camera>().transform.position, transform.TransformDirection(Vector3.forward), out ObjectCheck, HideDistance, LayerMaskInt) && CanHideDistanceWall)
-            {
-                WallDistance = Physics.Raycast(GetComponentInChildren<Camera>().transform.position, transform.TransformDirection(Vector3.forward), out ObjectCheck, HideDistance, LayerMaskInt);
-                Items.ani.SetBool("Hide", WallDistance);
-                Items.DefiniteHide = WallDistance;
-            }*/
         }
 
         private void OnTriggerEnter(Collider other)
@@ -173,25 +171,38 @@ namespace EvolveGames
             }
             if (other.CompareTag("Hammer"))
             {
-                // Reference to the GameObject you want to activate
-
-                if (Hammer != null)
-                {
-                    hammerCheck = true;
-                    Hammer.SetActive(true);
-                    Debug.Log("Activated ActualHammer GameObject!");
-                }
-                else
-                {
-                    Debug.LogError("Could not find ActualHammer GameObject!");
-                }
-
                 Destroy(other.gameObject);
+                StartCoroutine(DestroyWall());
             }
             if (other.CompareTag("Wall") && hammerCheck == true)
             {
                 StartCoroutine(DestroyWallDelayed(other.gameObject));
             }
+            if (other.CompareTag("Flash"))
+            {
+                LightsOn.SetActive(true);
+                Destroy(other.gameObject);
+            }
+            if (other.CompareTag("Lights Out"))
+            {
+                LightsOff.SetActive(true);
+                Destroy(other.gameObject);
+            }
+            if (other.CompareTag("Slow Walk"))
+            {
+                StartCoroutine(Freeze());
+                Destroy(other.gameObject);
+            }
+        }
+        IEnumerator DestroyWall()
+        {
+            hammerCheck = true;
+            Hammer.SetActive(true);
+
+            yield return new WaitForSeconds(10);
+
+            hammerCheck = false;
+            Hammer.SetActive(false);
         }
         IEnumerator DestroyWallDelayed(GameObject wall)
         {
@@ -206,10 +217,16 @@ namespace EvolveGames
         IEnumerator WalkFast()
         {
             WalkingValue = 3f;
-            Debug.Log("Sonic");
             yield return new WaitForSeconds(5);
             WalkingValue = 1.25f;
+        }
+        IEnumerator Freeze()
+        {
+            WalkingValue = 0.5f;
             Debug.Log("Not Sonic");
+            yield return new WaitForSeconds(7);
+            WalkingValue = 1.25f;
+            Debug.Log("Sonic");
         }
         private void OnTriggerExit(Collider other)
         {

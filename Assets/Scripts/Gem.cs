@@ -5,8 +5,8 @@ using UnityEngine;
 public class Gem : MonoBehaviour
 {
     public List<GameObject> gemPrefabs; // List of prefabs to spawn
-    public int numberOfGems = 6; // Number of gems to spawn
-    public Vector3 spawnAreaCenter; 
+    public int numberOfGems = 5; // Number of gems to spawn
+    public Vector3 spawnAreaCenter;
     public Vector3 spawnAreaSize;
 
     void Start()
@@ -16,12 +16,19 @@ public class Gem : MonoBehaviour
 
     void SpawnGems()
     {
-        List<GameObject> gems = new List<GameObject>();
+        List<GameObject> availableGems = new List<GameObject>(gemPrefabs); // Create a copy of the list of prefabs
 
         for (int i = 0; i < numberOfGems; i++)
         {
-            // Randomly select a gem prefab from the list
-            GameObject selectedPrefab = gemPrefabs[Random.Range(0, gemPrefabs.Count)];
+            if (availableGems.Count == 0)
+            {
+                Debug.LogWarning("Not enough unique gems to spawn.");
+                break; 
+            }
+
+            // Randomly select a gem prefab from the available list
+            int randomIndex = Random.Range(0, availableGems.Count);
+            GameObject selectedPrefab = availableGems[randomIndex];
 
             // Random position within the spawn area
             Vector3 spawnPos = new Vector3(
@@ -32,7 +39,9 @@ public class Gem : MonoBehaviour
 
             // Instantiate gem at the random position
             GameObject gemInstance = Instantiate(selectedPrefab, spawnPos, Quaternion.identity);
-            gems.Add(gemInstance);
+
+            // Remove the selected prefab from the available list to ensure uniqueness
+            availableGems.RemoveAt(randomIndex);
         }
     }
 }
