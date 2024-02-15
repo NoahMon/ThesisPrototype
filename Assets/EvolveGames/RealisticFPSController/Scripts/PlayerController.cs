@@ -67,7 +67,7 @@ namespace EvolveGames
         bool hammerCheck =false;
 
         private GameObject collidedObject = null;
-
+        private GameObject Hammer;
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -81,6 +81,8 @@ namespace EvolveGames
             RunningValue = RuningSpeed;
             installGravity = gravity;
             WalkingValue = walkingSpeed;
+            Hammer = GameObject.FindGameObjectWithTag("ActualHammer");
+            Hammer.SetActive(false);
         }
 
         void Update()
@@ -171,10 +173,20 @@ namespace EvolveGames
             }
             if (other.CompareTag("Hammer"))
             {
-                GameObject Hammer = other.transform.Find("ActualHammer").gameObject;
-               /* hammerCheck = true;
-                Hammer.SetActive(true);
-                Destroy(other.gameObject);*/
+                // Reference to the GameObject you want to activate
+
+                if (Hammer != null)
+                {
+                    hammerCheck = true;
+                    Hammer.SetActive(true);
+                    Debug.Log("Activated ActualHammer GameObject!");
+                }
+                else
+                {
+                    Debug.LogError("Could not find ActualHammer GameObject!");
+                }
+
+                Destroy(other.gameObject);
             }
             if (other.CompareTag("Wall") && hammerCheck == true)
             {
