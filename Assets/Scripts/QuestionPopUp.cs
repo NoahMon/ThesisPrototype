@@ -19,6 +19,10 @@ public class QuestionPopUp : MonoBehaviour
     public int correctCount;
     string currentSceneName;
     int counter;
+    public GameObject Pon;
+    public GameObject Poff;
+
+
     private void Awake()
     {
         popUpPanel.SetActive(false);
@@ -36,6 +40,26 @@ public class QuestionPopUp : MonoBehaviour
         Debug.Log(correctCount + "This one is in awake" + totalQuestions);
         currentSceneName = SceneManager.GetActiveScene().name;
         Debug.Log(currentSceneName);
+        Pon.gameObject.SetActive(false);
+        Poff.gameObject.SetActive(false);
+    }
+
+    public void QuestionPon()
+    {
+        Pon.gameObject.SetActive(true);
+        StartCoroutine(Wait1S());
+    }
+    public void QuestionPoff()
+    {
+        Poff.gameObject.SetActive(true);
+        StartCoroutine(Wait1S());
+    }
+
+    private IEnumerator Wait1S()
+    {
+        yield return new WaitForSeconds(1f);
+        Pon.gameObject.SetActive(false);
+        Poff.gameObject.SetActive(false);
     }
     private void Start()
     {

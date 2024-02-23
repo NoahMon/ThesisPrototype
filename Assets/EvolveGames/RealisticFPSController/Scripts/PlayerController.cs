@@ -167,11 +167,13 @@ namespace EvolveGames
             if (other.CompareTag("Speed Up"))
             {
                 Destroy(other.gameObject);
+                QuestionPopUp.Instance.QuestionPon();
                 StartCoroutine(WalkFast());
             }
             if (other.CompareTag("Hammer"))
             {
                 Destroy(other.gameObject);
+                QuestionPopUp.Instance.QuestionPon();
                 StartCoroutine(DestroyWall());
             }
             if (other.CompareTag("Wall") && hammerCheck == true)
@@ -181,16 +183,19 @@ namespace EvolveGames
             if (other.CompareTag("Flash"))
             {
                 LightsOn.SetActive(true);
+                QuestionPopUp.Instance.QuestionPon();
                 Destroy(other.gameObject);
             }
             if (other.CompareTag("Lights Out"))
             {
                 LightsOff.SetActive(true);
+                QuestionPopUp.Instance.QuestionPon();
                 Destroy(other.gameObject);
             }
             if (other.CompareTag("Slow Walk"))
             {
                 StartCoroutine(Freeze());
+                QuestionPopUp.Instance.QuestionPon();
                 Destroy(other.gameObject);
             }
         }
@@ -203,6 +208,7 @@ namespace EvolveGames
 
             hammerCheck = false;
             Hammer.SetActive(false);
+            QuestionPopUp.Instance.QuestionPoff();
         }
         IEnumerator DestroyWallDelayed(GameObject wall)
         {
@@ -219,14 +225,14 @@ namespace EvolveGames
             WalkingValue = 3f;
             yield return new WaitForSeconds(5);
             WalkingValue = 1.25f;
+            QuestionPopUp.Instance.QuestionPoff();
         }
         IEnumerator Freeze()
         {
             WalkingValue = 0.5f;
-            Debug.Log("Not Sonic");
             yield return new WaitForSeconds(7);
             WalkingValue = 1.25f;
-            Debug.Log("Sonic");
+            QuestionPopUp.Instance.QuestionPoff();
         }
         private void OnTriggerExit(Collider other)
         {
