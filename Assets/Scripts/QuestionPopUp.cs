@@ -21,7 +21,10 @@ public class QuestionPopUp : MonoBehaviour
     int counter;
     public GameObject Pon;
     public GameObject Poff;
-
+    public GameObject QLeft;
+    private int Qno = 14;
+    int randomInt;
+    private float sceneChangeTimestamp;
 
     private void Awake()
     {
@@ -37,11 +40,10 @@ public class QuestionPopUp : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log(correctCount + "This one is in awake" + totalQuestions);
         currentSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log(currentSceneName);
         Pon.gameObject.SetActive(false);
         Poff.gameObject.SetActive(false);
+        sceneChangeTimestamp = Time.time;
     }
 
     public void QuestionPon()
@@ -69,7 +71,12 @@ public class QuestionPopUp : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        float timeSpentOnPreviousScene = Time.time - sceneChangeTimestamp;
+        Debug.Log($"Time spent on {currentSceneName}: {timeSpentOnPreviousScene} seconds");
+
+        // Update the current scene name and timestamp
         currentSceneName = scene.name;
+        sceneChangeTimestamp = Time.time;
     }
     private void OnDestroy()
     {
@@ -80,7 +87,9 @@ public class QuestionPopUp : MonoBehaviour
         correctCount = 0;
         totalQuestions = 14;
         askedQuestions.Clear();
-        Debug.Log("Values Reset: " + correctCount + " - " + totalQuestions);
+        Qno = 14;
+        TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
+        qLeft.text = Qno + "/14 Questions Left";
     }
     public void DisplayQuestion()
     {
@@ -91,7 +100,7 @@ public class QuestionPopUp : MonoBehaviour
         }
 
         TextMeshProUGUI Question = question.GetComponent<TextMeshProUGUI>();
-        int randomInt = GetUniqueQuestionIndex();
+        randomInt = GetUniqueQuestionIndex();
 
         popUpPanel.SetActive(true);
         ToggleCursorState(true);
@@ -435,6 +444,7 @@ public class QuestionPopUp : MonoBehaviour
             string sceneToLoad = DetermineNextScene();
 
             currentSceneName = SceneManager.GetActiveScene().name;
+            Debug.Log(correctCount+""+currentSceneName);
             ResetValues();
             counter++;
             StartCoroutine(LoadSceneAfterDelay(sceneToLoad));
@@ -490,10 +500,17 @@ public class QuestionPopUp : MonoBehaviour
         if (playerChoice == correctAnswer)
         {
             correctCount++;
+            Qno--;
+            TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
+            qLeft.text = Qno+"/14 Questions Left";
             Debug.Log("Correct");
         }
         else
         {
+            Debug.Log(randomInt);
+            Qno--;
+            TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
+            qLeft.text = Qno + "/14 Questions Left";
             Debug.Log("Wrong");
         }
 
