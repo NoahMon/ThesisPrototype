@@ -583,9 +583,11 @@ public class QuestionPopUp : MonoBehaviour
         }
         else
         {
+            currentSceneName = SceneManager.GetActiveScene().name;
             Qno--;
             TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
             qLeft.text = Qno + "/14 Questions Left";
+            Debug.Log(currentSceneName + ""+ randomInt);
         }
 
         // After responding, check if all questions have been asked and evaluate performance
