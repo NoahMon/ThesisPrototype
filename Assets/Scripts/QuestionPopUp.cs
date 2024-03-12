@@ -26,7 +26,9 @@ public class QuestionPopUp : MonoBehaviour
     int randomInt;
     private float sceneChangeTimestamp;
     private Dictionary<int, string> questionTopics = new Dictionary<int, string>();
+    private List<string> incorrectQuestions = new List<string>();
     public GameObject results;
+    public GameObject iQuestion;
     public GameObject Image;
 
     private void Awake()
@@ -405,7 +407,7 @@ public class QuestionPopUp : MonoBehaviour
                     questionTopics[randomInt] = "Angles";
                     break;
                 case 11:
-                    Question.text = "An equilateral triangle ahs 3 equal sides?";
+                    Question.text = "An equilateral triangle has 3 equal sides?";
                     correctAnswer = true;
                     questionTopics[randomInt] = "Angles";
                     break;
@@ -536,16 +538,12 @@ public class QuestionPopUp : MonoBehaviour
     }
     private string DetermineNextScene()
     {
-       /* if (currentSceneName == "Easy")
-            return correctCount >= 10 ? "EndScene" : "EndScene";*/
         if (currentSceneName == "MediumEasy")
             return correctCount >= 10 ? "Medium" : "Easy";
         else if (currentSceneName == "Medium")
             return correctCount >= 10 ? "HardMedium" : "MediumEasy";
         else if (currentSceneName == "HardMedium")
             return correctCount >= 10 ? "Hard" : "Medium";
-        else if (currentSceneName == "Hard")
-            return correctCount >= 10 ? "EndScene" : "EndScene";
 
             return "EndScene";
     }
@@ -583,6 +581,7 @@ public class QuestionPopUp : MonoBehaviour
         }
         else
         {
+            incorrectQuestions.Add(question.GetComponent<TextMeshProUGUI>().text);
             currentSceneName = SceneManager.GetActiveScene().name;
             Qno--;
             TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
@@ -603,6 +602,14 @@ public class QuestionPopUp : MonoBehaviour
         {
             Image.SetActive(true);
             TextMeshProUGUI topicText = results.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI quesitonText = iQuestion.GetComponent<TextMeshProUGUI>();
+
+            quesitonText.text += "\n\nIncorrect Questions:\n";
+            foreach (var incorrectQuestion in incorrectQuestions)
+            {
+                quesitonText.text += $"{incorrectQuestion}\n";
+            }
+
 
             topicText.text = "Incorrect Topics:\n";
 
