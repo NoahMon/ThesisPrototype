@@ -30,6 +30,7 @@ public class QuestionPopUp : MonoBehaviour
     public GameObject results;
     public GameObject iQuestion;
     public GameObject Image;
+    public GameObject Scroll;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class QuestionPopUp : MonoBehaviour
         Pon.gameObject.SetActive(false);
         Poff.gameObject.SetActive(false);
         Image.SetActive(false);
+        Scroll.SetActive(false);
         sceneChangeTimestamp = Time.time;
     }
 
@@ -78,7 +80,7 @@ public class QuestionPopUp : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         float timeSpentOnPreviousScene = Time.time - sceneChangeTimestamp;
-        Debug.Log($"Time spent on {currentSceneName}: {timeSpentOnPreviousScene} seconds");
+        //Debug.Log($"Time spent on {currentSceneName}: {timeSpentOnPreviousScene} seconds");
 
         // Update the current scene name and timestamp
         currentSceneName = scene.name;
@@ -91,7 +93,7 @@ public class QuestionPopUp : MonoBehaviour
     public void ResetValues()
     {
         correctCount = 0;
-        totalQuestions = 15;
+        totalQuestions = 14;
         askedQuestions.Clear();
         Qno = 14;
         TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
@@ -586,7 +588,7 @@ public class QuestionPopUp : MonoBehaviour
             Qno--;
             TextMeshProUGUI qLeft = QLeft.GetComponent<TextMeshProUGUI>();
             qLeft.text = Qno + "/14 Questions Left";
-            Debug.Log(currentSceneName + ""+ randomInt);
+            //Debug.Log(currentSceneName + ""+ randomInt);
         }
 
         // After responding, check if all questions have been asked and evaluate performance
@@ -600,11 +602,13 @@ public class QuestionPopUp : MonoBehaviour
     {
         if (currentSceneName == "EndScene")
         {
+            ToggleCursorState(true);
             Image.SetActive(true);
+            Scroll.SetActive(true);
             TextMeshProUGUI topicText = results.GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI quesitonText = iQuestion.GetComponent<TextMeshProUGUI>();
 
-            quesitonText.text += "\n\nIncorrect Questions:\n";
+            quesitonText.text += "Incorrect Questions:\n";
             foreach (var incorrectQuestion in incorrectQuestions)
             {
                 quesitonText.text += $"{incorrectQuestion}\n";
